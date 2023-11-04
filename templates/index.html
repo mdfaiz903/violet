@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="row" id="product-list">
-                {% for category in featured_categories %}
+                {% for category in categories %} #categories from context processor
                 {% for prod in category.products.all %}
                 <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
                     <div class="single-product-item">
