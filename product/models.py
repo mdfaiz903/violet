@@ -24,6 +24,11 @@ class Product(models.Model):
     class Meta:
         ordering = ['-id']
 
+    @property
+    def related(self):
+        #products from related_name
+        return self.category.products.all().exclude(pk=self.pk)
+
     def __str__(self) -> str:
         return self.title
     
