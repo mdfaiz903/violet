@@ -53,6 +53,11 @@
                         <h2>{{product.title|title}}</h2>
                         <div class="pc-meta">
                             <h5>${{product.price}}</h5>
+                            {% if product.in_stock %}
+                                <h5>In Stock</h5>
+                            {% else  %}
+                                <h5>Out of Stock</h5>
+                            {% endif %}
                             {% comment %} <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -71,7 +76,9 @@
                                 <input type="text" value="1">
                             </div>
                         </div>
+                        {% if product.in_stock %}
                         <a href="#" class="primary-btn pc-btn">Add to cart</a>
+                        {% endif %}
                         {% comment %} <ul class="p-info">
                             <li>Product Information</li>
                             <li>Reviews</li>
