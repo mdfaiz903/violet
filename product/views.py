@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from . models import *
 # Create your views here.
 class index(TemplateView):
@@ -17,5 +17,9 @@ class index(TemplateView):
           )
           return context
 
-class ProductDetails(TemplateView):
-     template_name = "product/product-details.html"
+class ProductDetails(DetailView):
+    model = Product
+    template_name = "product/product-details.html"
+    slug_url_kwarg = 'slug'
+
+     
