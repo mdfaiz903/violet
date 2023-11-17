@@ -27,7 +27,7 @@
 
                             <ul class="sub-menu">
                                 {% for category in categories %} <!--categories from context processor-->
-                                <li><a href="{% url "category-details" category.slug %}">{{category.title | title}}</a></li>
+                                <li><a href="{% url "category-details" category.slug %}">{{category.title | title}}</a></li><!--category word come from model-->
                                 {% endfor %}
                             </ul>
                         </li>

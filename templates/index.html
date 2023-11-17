@@ -27,11 +27,11 @@
                 <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
                     <div class="single-product-item">
                         <figure>
-                            <a href="{% url "ProductDetails" prod.slug %}"><img style="height: 320px;" src="{{prod.thumbnail}}" alt=""></a>
+                            <a href="{% url "product-details" prod.slug %}"><img style="height: 320px;" src="{{prod.thumbnail}}" alt=""></a>
                             <div class="p-status"> {{category.title | title}} </div>
                         </figure>
                         <div class="product-text">
-                            <a class='text-decoration-none' href="{% url "ProductDetails" prod.slug %}"><h6>{{prod.title | truncatewords:7}}</h6></a>
+                            <a class='text-decoration-none' href="{% url "product-details" prod.slug %}"><h6>{{prod.title | truncatewords:7}}</h6></a>
                             <p>${{prod.price}}</p>
                         </div>
                     </div>
@@ -62,11 +62,11 @@
                 <div class="col-lg-3 col-sm-6 mix ">
                     <div class="single-product-item">
                         <figure>
-                            <a href="{% url "ProductDetails" prod.slug %}"><img style="height: 320px;" src="{{prod.thumbnail}}" alt=""></a>
+                            <a href="{% url "product-details" prod.slug %}"><img style="height: 320px;" src="{{prod.thumbnail}}" alt=""></a>
                             <div class="p-status">{{prod.category.title | title}} </div>
                         </figure>
                         <div class="product-text">
-                            <a class='text-decoration-none' href="{% url "ProductDetails" prod.slug %}"><h6>{{prod.title | truncatewords:7}}</h6></a>
+                            <a class='text-decoration-none' href="{% url "product-details" prod.slug %}"><h6>{{prod.title | truncatewords:7}}</h6></a>
                             <p>${{prod.price}}</p>
                         </div>
                     </div>

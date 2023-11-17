@@ -1,6 +1,63 @@
-{% extends "base.html" %}
-{% block title %}{{category.title}}{% endblock title %}
+{% extends "../base.html" %}
+{% block title %}{{category.title | title}}{% endblock title %}
 {% load static %}
 {% block content %}
- <h3>{{category.title}}</h3>
-{% endblock content %}
+
+
+
+    <!-- Page Add Section Begin -->
+    {% if products.count > 0 %}
+    <section class="page-add">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="page-breadcrumb">
+                        <!--category word from mode & products from views-->
+                        <h3>{{category.title|title}} ({{products.count}})</h3>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <img src="{% static 'img/add.jpg'%}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- Page Add Section End -->
+
+    <!-- Categories Page Section Begin -->
+    <section class="categories-page spad">
+        <div class="container">
+         
+            {% if products.count > 0  %}
+            <div class="row">
+                {% for product in products %} <!--from view page (products)-->
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-product-item">
+                        <a href="{% url "product-details" product.slug %}">
+                        <figure>
+                            <img src="{{product.thumbnail}}" alt="">
+                            <div class="p-status">new</div>
+
+                        </figure></a>
+                        <div class="product-text">
+                            <a href="{% url "product-details" product.slug %}">
+                                <h6>{{product.title}}</h6>
+                            </a>
+                            <p>${{product.price}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            {% include "no_result.html" %}
+            {% endif %}
+    
+        </div>
+    </section>
+    
+    <!-- Categories Page Section End -->
+
+    {% endblock content %}
