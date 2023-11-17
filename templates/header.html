@@ -23,11 +23,11 @@
                     <ul>
                         <li><a  href="{% url 'home' %}">Home</a></li>
                         <li><a  href="#">Products</a></li>
-                        <li><a href="#">Categories</a>
+                        <li><a href="">Categories</a>
 
                             <ul class="sub-menu">
                                 {% for category in categories %} <!--categories from context processor-->
-                                <li><a href="#">{{category.title | title}}</a></li>
+                                <li><a href="{% url "category-details" category.slug %}">{{category.title | title}}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
