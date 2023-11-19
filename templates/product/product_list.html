@@ -24,10 +24,8 @@
                                 </form>
                             </div>
                             <div class="cf-right">
-                                <span>20 Products</span>
-                                <a href="#">2</a>
-                                <a href="#" class="active">4</a>
-                                <a href="#">6</a>
+                                <span>{{paginator.count}} Products</span>
+                                {% include "../paginator.html" %}
                             </div>
                         </div>
                     </div>
@@ -47,7 +45,7 @@
                 {% for product in object_list %} <!--from view page (object_list)-->
                 <div class="col-lg-3 col-md-6">
                     <div class="single-product-item">
-                        <a href="{% url "product-details" product.slug %}">
+                        <a href="{% url 'product-details' product.slug %}">
                         <figure>
                             <img src="{{product.thumbnail}}" alt="">
                             <div class="p-status">new</div>
