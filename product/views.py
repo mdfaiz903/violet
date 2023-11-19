@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView,ListView
 from . models import *
 # Create your views here.
 class index(TemplateView):
@@ -39,3 +39,11 @@ class CategoryDetails(DetailView):
           context['products'] = self.get_object().products.all()
           return context
      
+
+
+class ProductList(ListView):
+     model = Product
+     template_name='product/product_list.html'
+     context_object_name = 'object_list'
+     def get_context_data(self, **kwargs):
+          return super().get_context_data(**kwargs)

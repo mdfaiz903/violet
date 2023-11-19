@@ -14,7 +14,7 @@
                         </div>
                         <ul class="product-controls">
                             <li data-filter="*">All</li>
-                            {% for category in categories %}
+                            {% for category in featured_categories %}
                             <li data-filter=".{{category.slug}}">{{category.title|title}}</li>
                             {% endfor %}
                         </ul>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="row" id="product-list">
-                {% for category in categories %}<!--categories from context processor-->
+                {% for category in featured_categories %}
                 {% for prod in category.products.all %}
                 <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
                     <div class="single-product-item">
