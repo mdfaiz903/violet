@@ -1,7 +1,8 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView,ListView
+from django.views.generic import TemplateView, DetailView,ListView,View
 from . models import *
+from django.db.models import Q
 from django.core.paginator import(
      PageNotAnInteger,
      EmptyPage,
@@ -79,3 +80,20 @@ class ProductList(ListView):
           context['object_list'] = queryset
           context['paginator'] = Paginator
           return context 
+     
+#add search class for searching ....
+class searchResult(View):
+     def get(self,*args, **kwargs):
+          # searc_key from html form name
+          key = self.request.GET.get('search_key','') # if '' is empty then it empty search
+          # Product word from model name
+          products = Product.objects.filter(
+               # title from direct model but category__title is foregin key so it use prefix
+               Q(title__icontains=key) |
+               Q(category__title__icontains=key)
+          )
+          context = {
+               'products':products,
+               'key': key
+          }
+          return render(self.request,'product/search-product.html',context)
