@@ -9,6 +9,8 @@ from django.core.paginator import(
      InvalidPage,
      Paginator,
 )
+from cart.cart import Cart
+
 # Create your views here.
 class index(TemplateView):
      template_name = "index.html"
@@ -25,11 +27,14 @@ class index(TemplateView):
           return context
 
 class ProductDetails(DetailView):
-    model = Product
-    template_name = "product/product-details.html"
-    slug_url_kwarg = 'slug'
-
-    def get_context_data(self, **kwargs):
+     model = Product
+     template_name = "product/product-details.html"
+     slug_url_kwarg = 'slug'
+     def get(self,request,*args, **kwargs):
+         cart_item = Cart(self.request)
+         print(cart_item.cart)
+         return super().get(request,*args, **kwargs)
+     def get_context_data(self, **kwargs):
          context= super().get_context_data(**kwargs)
          context['related_product']=self.get_object().related
          return context
@@ -71,8 +76,11 @@ class ProductList(ListView):
      template_name='product/product_list.html'
      context_object_name = 'object_list'
      paginate_by = 4 # How many item want to show
+     def get(self,request,*args,**kwargs):
+          cart_items = Cart(self.request)
+          print(cart_items.cart)
+          return super().get(request,*args,**kwargs)
      def get_context_data(self, **kwargs):
-          
           context =  super().get_context_data(**kwargs)
           page_obj = customPaginator(self.request,self.get_queryset(),self.paginate_by)
           queryset = page_obj.get_queryset()

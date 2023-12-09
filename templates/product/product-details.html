@@ -71,19 +71,14 @@
                             <li><span>Category :</span> {{product.category.title}}</li>
                             {% comment %} <li><span>Tags :</span> man, shirt, dotted, elegant, cool</li> {% endcomment %}
                         </ul>
-                        <div class="product-quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
-                            </div>
-                        </div>
                         {% if product.in_stock %}
-                        <a href="#" class="primary-btn pc-btn">Add to cart</a>
+                        <form action="{% url "add-to-cart" product.id %}" method="POST">
+                            {% csrf_token %}
+
+                            <button style="cursor:pointer;" href="#" class="primary-btn pc-btn">Add to cart</button>
+                        </form>
                         {% endif %}
-                        {% comment %} <ul class="p-info">
-                            <li>Product Information</li>
-                            <li>Reviews</li>
-                            <li>Product Care</li>
-                        </ul> {% endcomment %}
+  
                     </div>
                 </div>
             </div>

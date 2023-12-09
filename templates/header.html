@@ -10,9 +10,9 @@
                 <div class="header-right">
                     <img src="{% static 'img/icons/search.png' %}" alt="" class="search-trigger">
                     
-                    <a href="#">
+                    <a href="{% url "cart" %}">
                         <img src="{% static 'img/icons/bag.png' %}" alt="">
-                        <span>2</span>
+                        <span>{{cart | length}}</span>
                     </a>
                 </div>
                 <div class="user-access">
