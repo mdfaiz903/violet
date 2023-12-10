@@ -7,6 +7,11 @@
 <div class="text-center">
     <img src="{% static 'img/no-result.png' %}" alt="No Result Found Image" class="img-fluid">
     <h3 class="mt-3">No Results Found</h3>
+    
     <p>Sorry, but we couldn't find any results for your search.</p>
     <!-- Add any additional content or instructions here -->
+    <a href="{% url "home" %}">
+       
+        <button  type="button" class="btn btn-outline-primary mb-5">Go To Home page</button>
+    </a>
   </div>
