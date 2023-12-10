@@ -19,10 +19,14 @@ class cartItems(generic.TemplateView):
     template_name = 'cart/cart.html'
 
     def get(self, request, *args,**kwargs):
-        product_id = request.GET.get('product_id',None)
-        quantity = request.GET.get('quantity',None)
+        product_id = request.GET.get('product_id',None)# if product_id is hold otherwise None, product_id from cart.html
+        quantity = request.GET.get('quantity',None)# if quantity is hold otherwise None
+        clear = request.GET.get('clear',False)# if clear is hold otherwise False
+        cart = Cart(request)
+        if clear:
+            cart.clear()
+            return redirect('cart')
         if product_id and quantity :
-            cart = Cart(request)
             cart.update(int(product_id),int(quantity))
             return redirect('cart')
         return super().get(request, *args, **kwargs)
