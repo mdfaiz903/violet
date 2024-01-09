@@ -1,12 +1,14 @@
-from typing import Any
-from django import http
-from  product.models import Product
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render,redirect
+from datetime import datetime
 from django.views import generic
-from . cart import Cart # from . file_name import function_name(class Cart)
-# Create your views here.
+from django.utils import timezone
+from django.contrib import messages
+from django.shortcuts import get_object_or_404,redirect
 
+
+# Create your views here.
+from . cart import Cart # from . file_name import function_name(class Cart)
+from . models import Coupon
+from  product.models import Product
 class AddTocart(generic.View):
     def post(self,*args, **kwargs):
         product = get_object_or_404(Product,id=kwargs.get('product_id'))
@@ -31,3 +33,28 @@ class cartItems(generic.TemplateView):
             return redirect('cart')
         return super().get(request, *args, **kwargs)
 
+# class for add coupon functionality
+class AddCoupon(generic.View):
+    def post(self,*args, **kwargs):
+        code = self.request.POST.get('coupon','')
+        coupon = Coupon.objects.filter(code__iexact=code,active=True)
+        cart = Cart(self.request)
+        if coupon.exists():
+            coupon = coupon.first()
+            current_date = datetime.date(timezone.now())
+            print("current_date: ",current_date)
+            active_date = coupon.active_date
+            expiry_date = coupon.expiry_date
+
+            if current_date > expiry_date:
+                messages.warning(self.request, "The coupon expired")
+                return redirect('cart')   
+            if current_date < active_date:
+                messages.warning(self.request, "The coupon is not yet available")
+                return redirect('cart')
+            cart.add_coupon(coupon.id)
+            messages.success(self.request, "The coupon was added successfully")
+            return redirect('cart')
+        else:
+            messages.warning(self.request,"Invalid coupon code")
+            return redirect('cart')

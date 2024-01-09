@@ -28,7 +28,7 @@
                             <th class="product-h">Product</th>
                             <th>Price</th>
                             <th class="quan">Quantity</th>
-                            <th>Total</th>
+                            <th>Sub-Total</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -37,7 +37,7 @@
                         {% with product=item.product %}
                         <tr>
                             <td class="product-col">
-                                <img src="{{product.thumbnail}}" alt="">
+                                <img style='width:100px;height:100px' src="{{product.thumbnail}}" alt="">
                                 <div class="p-title">
                                     <h5>{{product.title}}</h5>
                                 </div>
@@ -48,12 +48,12 @@
                                 <div class="pro-qty">
                                     <!--add link tag for adding url(?product_id={{product.id}}&&quantity=-1)-->
                                     <a href="?product_id={{product.id}}&&quantity=-1">
-                                        <span class="dec qtybtn">-</span>'
+                                        <span class="dec qtybtn">-</span>
                                     </a>
                                     <input disabled type="text" value="{{item.quantity}}">
                                     <!--add link tag for adding url(?product_id={{product.id}}&&quantity=-1)-->
                                     <a href="?product_id={{product.id}}&&quantity=1">
-                                        <span class="dec qtybtn">+</span>'
+                                        <span class="dec qtybtn">+</span>
                                     </a>
                                 </div>
                             </td>
@@ -67,13 +67,22 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <hr>
+                <h4 class='text-center' >
+                    <strong>Total =</strong> $ {{cart.total|floatformat:2}} <!---Here cart.total are come from cart.py file its a function def total-->
+                </h4>
             </div>
             <div class="cart-btn">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="coupon-input">
-                            <input type="text" placeholder="Enter cupone code">
-                        </div>
+                        <!--Here for add coupon form in html-->
+                        <form action="{% url "add-coupon" %}" method="POST">
+                            {% csrf_token %}
+                            <div class="coupon-input">
+                                <input type="text" name='coupon' placeholder="Enter cupone code">
+                            </div>
+                        </form>
+                        <!------------------------------------->
                     </div>
                     <div class="col-lg-5 offset-lg-1 text-left text-lg-right">
                         <a href="?clear=True">
