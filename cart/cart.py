@@ -54,6 +54,7 @@ class Cart(object):
     def clear(self):
         try:
             del self.session[self.cart_id]
+            del self.session[self.coupon_id]
         except:
             pass
         self.save()
