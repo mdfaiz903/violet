@@ -5,15 +5,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="" method='POST'>
+            <form class="contact-form" method='POST'>
                 {% csrf_token %}
                
                 {{form}}
-                <div class="d-grid col-12">
-                        <button type="submit"class='btn btn-success'>Login</button>
+                <div class="col-lg-12 text-right">
+                        <button type="submit"class='btn btn-info my-3 '>Login</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
 {% endblock content %}
+

@@ -16,8 +16,12 @@
                     </a>
                 </div>
                 <div class="user-access">
+                    {% if user.is_authenticated %}
+                    <a href="{% url "logout" %}">Logout</a>
+                    {% else %}
                     <a href="">Register</a>
                     <a href="{% url "login" %}" class="in">Sign in</a>
+                    {% endif %}
                 </div>
                 <nav class="main-menu mobile-menu">
                     <ul>
