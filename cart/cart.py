@@ -59,6 +59,7 @@ class Cart(object):
             pass
         self.save()
 
+   #use ofr after logout restore cart & coupon session data
     def restore_after_logout(self,cart={},coupon=None):
         self.cart = self.session[self.cart_id]=cart
         self.coupon = self.session[self.coupon_id]=coupon

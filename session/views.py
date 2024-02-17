@@ -27,6 +27,7 @@ def loginuser(request):
 
 
 def logoutUser(request):
+    # use for store cart & coupon session data
     cart = Cart(request)
     current_cart = copy.deepcopy(cart.cart)
     coupon = copy.deepcopy(cart.coupon)
