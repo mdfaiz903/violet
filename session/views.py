@@ -1,7 +1,7 @@
 import  copy
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib import messages
 from .forms import CustomSignupForm
 from cart . cart import Cart
@@ -47,3 +47,19 @@ def signup(request):
     else:
         form = CustomSignupForm()
     return  render(request,'session/signup.html',{'form':form})
+
+
+def pass_change(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PasswordChangeForm(data=request.POST,user = request.user)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request,form.user)
+                messages.success(request,"Password Change Successfully")
+                return redirect('login')
+        else:
+            form = PasswordChangeForm(user=request.user)
+        return render(request,'session/change_pass.html',{'form':form})
+    else:
+        messages.warning(request,"Invalid User")
